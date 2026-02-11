@@ -1,23 +1,58 @@
-<!--
-**andimrob/andimrob** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
-
+```bash
+rob@github:~$ whoami
 ```
- _   _ _     ___ _             ____       _
-| | | (_)   |_ _( )_ __ ___   |  _ \ ___ | |__
-| |_| | |    | ||/| '_ ` _ \  | |_) / _ \| '_ \
-|  _  | |_   | |  | | | | | | |  _ < (_) | |_) |
-|_| |_|_( ) |___| |_| |_| |_| |_| \_\___/|_.__/
-        |/
+
+**andimrob** — software engineer, tinkerer, builder of things.
+
+---
+
+```bash
+rob@github:~$ cat /etc/motd
+
+  Welcome to Rob's GitHub profile.
+  Last login: Sat Feb  8 09:42:01 2026 from the internet
+  System uptime: several decades and counting.
+
+rob@github:~$ cat interests.txt
+
+  Ruby / Rails
+  JavaScript / TypeScript
+  Building tools that make life easier
+  Open source
+  Clean code and good tests
+
+rob@github:~$ ls projects/
+
+  drwxr-xr-x  coming-soon/
+  drwxr-xr-x  side-projects/
+  drwxr-xr-x  open-source-contributions/
+
+rob@github:~$ git log --oneline --reverse
+
+  a1b2c3d  Wrote first "Hello World"
+  d4e5f6a  Discovered the terminal is home
+  f7a8b9c  Fell down the Ruby rabbit hole
+  c0d1e2f  Started building things for the web
+  3a4b5c6  Realized tests should come first
+  6d7e8f9  Still going...
+
+rob@github:~$ cat philosophy.txt
+
+  Ship it. Learn from it. Iterate.
+  Write tests before code.
+  Simplicity > cleverness.
+  The best code is the code you don't have to write.
+
+rob@github:~$ cat contact.txt
+
+  GitHub:   github.com/andimrob
+  LinkedIn: linkedin.com/in/andimrob
+```
+
+---
+
+```bash
+rob@github:~$ exit
+logout
+Connection to github.com closed.
 ```

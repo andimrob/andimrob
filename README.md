@@ -9,7 +9,7 @@ rob@github:~$ whoami
 ```bash
 rob@github:~$ cat /etc/motd
 
-  Welcome to Rob's GitHub profile.
+  Welcome. You have reached the GitHub profile of Rob.
   Last login: Sat Feb  8 09:42:01 2026 from the internet
   System uptime: several decades and counting.
 

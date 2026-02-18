@@ -20,37 +20,22 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          YEAR=$(date -u +%Y)
-
           QUERY='
-          query($login: String!, $from: DateTime!, $to: DateTime!) {
+          query($login: String!) {
             user(login: $login) {
               repositories(first: 100, ownerAffiliations: OWNER, orderBy: {field: PUSHED_AT, direction: DESC}, privacy: PUBLIC) {
                 nodes {
                   name
                   isFork
                   pushedAt
-                  stargazerCount
-                  languages(first: 5, orderBy: {field: SIZE, direction: DESC}) {
-                    nodes { name }
-                  }
                 }
-              }
-              followers { totalCount }
-              contributionsCollection(from: $from, to: $to) {
-                totalCommitContributions
-                totalPullRequestContributions
-                totalIssueContributions
-                totalPullRequestReviewContributions
               }
             }
           }'
 
           RESULT=$(gh api graphql \
             -f query="$QUERY" \
-            -f login="andimrob" \
-            -f from="${YEAR}-01-01T00:00:00Z" \
-            -f to="${YEAR}-12-31T23:59:59Z")
+            -f login="andimrob")
 
           # --- Last login (most recent push to a non-fork repo) ---
           LAST_PUSH=$(echo "$RESULT" | jq -r '
@@ -72,41 +57,6 @@ jobs:
             | "  drwxr-xr-x  \(.name)/"
           ' > /tmp/projects.txt
 
-          # --- Neofetch stats ---
-          REPO_COUNT=$(echo "$RESULT" | jq -r '
-            [.data.user.repositories.nodes[] | select(.isFork == false)] | length
-          ')
-          STARS=$(echo "$RESULT" | jq -r '
-            [.data.user.repositories.nodes[] | select(.isFork == false) | .stargazerCount] | add // 0
-          ')
-          RAW_CONTRIBS=$(echo "$RESULT" | jq -r '
-            .data.user.contributionsCollection
-            | (.totalCommitContributions + .totalPullRequestContributions + .totalIssueContributions + .totalPullRequestReviewContributions)
-          ')
-          CONTRIBUTIONS=$(echo "$RAW_CONTRIBS" | sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta')
-          FOLLOWERS=$(echo "$RESULT" | jq -r '.data.user.followers.totalCount')
-          TOP_LANGS=$(echo "$RESULT" | jq -r '
-            [.data.user.repositories.nodes[]
-              | select(.isFork == false)
-              | .languages.nodes[]
-              | .name]
-            | group_by(.)
-            | sort_by(-length)
-            | .[0:3]
-            | map(.[0])
-            | join(", ")
-          ')
-
-          cat > /tmp/neofetch.txt <<EOF
-            rob@github
-            ----------
-            Repos: ${REPO_COUNT}
-            Stars: ${STARS}
-            Contributions: ${CONTRIBUTIONS}
-            Top Languages: ${TOP_LANGS}
-            Followers: ${FOLLOWERS}
-          EOF
-
       - name: Generate README from template
         run: |
           cp README.template.md README.md
@@ -114,7 +64,6 @@ jobs:
           LAST_LOGIN=$(cat /tmp/last_login.txt)
           sed -i "s|{{LAST_LOGIN}}|${LAST_LOGIN}|" README.md
 
-          awk '/\{\{NEOFETCH\}\}/{while((getline line < "/tmp/neofetch.txt") > 0) print line; next}1' README.md > /tmp/readme_tmp && mv /tmp/readme_tmp README.md
           awk '/\{\{PROJECTS\}\}/{while((getline line < "/tmp/projects.txt") > 0) print line; next}1' README.md > /tmp/readme_tmp && mv /tmp/readme_tmp README.md
 
       - name: Commit and push

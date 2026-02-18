@@ -5,10 +5,6 @@ rob@github:~$ cat /etc/motd
   Last login: {{LAST_LOGIN}} from the internet
   System uptime: several decades and counting.
 
-rob@github:~$ neofetch
-
-{{NEOFETCH}}
-
 rob@github:~$ cat interests.txt
 
   Ruby / Rails

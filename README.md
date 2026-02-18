@@ -1,4 +1,4 @@
-```bash
+<pre>
 rob@github:~$ cat /etc/motd
 
   Welcome. You have reached the GitHub profile of Rob.
@@ -14,14 +14,11 @@ rob@github:~$ cat interests.txt
   Clean code and good tests
 
 rob@github:~$ ls projects/
-```
-<pre>
+
   drwxr-xr-x  <a href="https://github.com/andimrob/dotfiles">dotfiles/</a>
   drwxrwxr-x  <a href="https://github.com/andimrob/andimrob.github.io">andimrob.github.io/</a>
   drwxr-x---  <a href="https://github.com/andimrob/docrot">docrot/</a>
-</pre>
 
-```bash
 rob@github:~$ git log --oneline --reverse
 
   a1b2c3d  Wrote first "Hello World"
@@ -35,9 +32,9 @@ rob@github:~$ cat philosophy.txt
 
   Ship it. Learn from it. Iterate.
   Write tests before code.
-  Simplicity > cleverness.
+  Simplicity &gt; cleverness.
 
 rob@github:~$ exit
 logout
 Connection to github.com closed.
-```
+</pre>

@@ -1,0 +1,53 @@
+name: Update MOTD
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  push:
+    branches: ['*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-motd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get latest commit date
+        id: latest
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          LATEST_DATE=$(
+            gh api /users/andimrob/events --paginate --jq '
+              [.[] | select(.type == "PushEvent")][0].created_at
+            '
+          )
+
+          if [ -n "$LATEST_DATE" ] && [ "$LATEST_DATE" != "null" ]; then
+            FORMATTED=$(date -d "$LATEST_DATE" +'%a %b %e %H:%M:%S %Y')
+            echo "date=$FORMATTED" >> "$GITHUB_OUTPUT"
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No recent PushEvent found"
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update README
+        if: steps.latest.outputs.found == 'true'
+        run: |
+          sed -i "s/Last login: .* from the internet/Last login: ${{ steps.latest.outputs.date }} from the internet/" README.md
+
+      - name: Commit and push
+        if: steps.latest.outputs.found == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git diff --quiet README.md || {
+            git add README.md
+            git commit -m "chore: update motd last login date"
+            git push
+          }

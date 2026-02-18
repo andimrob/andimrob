@@ -1,11 +1,15 @@
 <pre>
-rob@github:~$ cat /etc/motd
+<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ cat /etc/motd
 
   Welcome. You have reached the GitHub profile of Rob.
+<<<<<<< HEAD
   Last login: Wed Feb 18 05:06:27 2026 from the internet
+=======
+  Last login: Wed Feb 18 05:18:18 2026 from the internet
+>>>>>>> 804c32f (chore: update motd profile data)
   System uptime: several decades and counting.
 
-rob@github:~$ cat interests.txt
+<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ cat interests.txt
 
   Ruby / Rails
   JavaScript / TypeScript
@@ -13,13 +17,13 @@ rob@github:~$ cat interests.txt
   Open source
   Clean code and good tests
 
-rob@github:~$ ls projects/
+<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ ls projects/
 
   drwxr-xr-x  <a href="https://github.com/andimrob/dotfiles">dotfiles/</a>
   drwxrwxr-x  <a href="https://github.com/andimrob/andimrob.github.io">andimrob.github.io/</a>
   drwxr-x---  <a href="https://github.com/andimrob/docrot">docrot/</a>
 
-rob@github:~$ git log --oneline --reverse
+<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ git log --oneline --reverse
 
   a1b2c3d  Wrote first "Hello World"
   d4e5f6a  Discovered the terminal is home
@@ -28,13 +32,13 @@ rob@github:~$ git log --oneline --reverse
   3a4b5c6  Realized tests should come first
   6d7e8f9  Still going...
 
-rob@github:~$ cat philosophy.txt
+<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ cat philosophy.txt
 
   Ship it. Learn from it. Iterate.
   Write tests before code.
   Simplicity &gt; cleverness.
 
-rob@github:~$ exit
+<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ exit
 logout
 Connection to github.com closed.
 </pre>

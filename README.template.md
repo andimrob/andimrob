@@ -1,11 +1,11 @@
 <pre>
-<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ cat /etc/motd
+rob@github:~$ cat /etc/motd
 
   Welcome. You have reached the GitHub profile of Rob.
   Last login: {{LAST_LOGIN}} from the internet
   System uptime: several decades and counting.
 
-<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ cat interests.txt
+rob@github:~$ cat interests.txt
 
   Ruby / Rails
   JavaScript / TypeScript
@@ -13,11 +13,11 @@
   Open source
   Clean code and good tests
 
-<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ ls projects/
+rob@github:~$ ls projects/
 
 {{PROJECTS}}
 
-<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ git log --oneline --reverse
+rob@github:~$ git log --oneline --reverse
 
   a1b2c3d  Wrote first "Hello World"
   d4e5f6a  Discovered the terminal is home
@@ -26,13 +26,13 @@
   3a4b5c6  Realized tests should come first
   6d7e8f9  Still going...
 
-<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ cat philosophy.txt
+rob@github:~$ cat philosophy.txt
 
   Ship it. Learn from it. Iterate.
   Write tests before code.
   Simplicity &gt; cleverness.
 
-<span style="color:#3fb950"><b>rob@github</b></span>:<span style="color:#58a6ff"><b>~</b></span>$ exit
+rob@github:~$ exit
 logout
 Connection to github.com closed.
 </pre>

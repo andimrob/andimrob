@@ -16,38 +16,62 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Get latest commit date
-        id: latest
+      - name: Fetch profile data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          LATEST_DATE=$(
-            gh api /users/andimrob/events --jq '
-              [.[] | select(.type == "PushEvent")][0].created_at
-            '
-          )
+          QUERY='
+          query($login: String!) {
+            user(login: $login) {
+              repositories(first: 100, ownerAffiliations: OWNER, orderBy: {field: PUSHED_AT, direction: DESC}, privacy: PUBLIC) {
+                nodes {
+                  name
+                  isFork
+                  pushedAt
+                }
+              }
+            }
+          }'
 
-          if [ -n "$LATEST_DATE" ] && [ "$LATEST_DATE" != "null" ]; then
-            FORMATTED=$(date -d "$LATEST_DATE" +'%a %b %e %H:%M:%S %Y')
-            echo "date=$FORMATTED" >> "$GITHUB_OUTPUT"
-            echo "found=true" >> "$GITHUB_OUTPUT"
+          RESULT=$(gh api graphql \
+            -f query="$QUERY" \
+            -f login="andimrob")
+
+          # --- Last login (most recent push to a non-fork repo) ---
+          LAST_PUSH=$(echo "$RESULT" | jq -r '
+            [.data.user.repositories.nodes[] | select(.isFork == false)] | .[0].pushedAt
+          ')
+          if [ -n "$LAST_PUSH" ] && [ "$LAST_PUSH" != "null" ]; then
+            LAST_LOGIN=$(date -d "$LAST_PUSH" +'%a %b %e %H:%M:%S %Y')
           else
-            echo "No recent PushEvent found"
-            echo "found=false" >> "$GITHUB_OUTPUT"
+            LAST_LOGIN="unknown"
           fi
+          echo "$LAST_LOGIN" > /tmp/last_login.txt
 
-      - name: Update README
-        if: steps.latest.outputs.found == 'true'
+          # --- Projects (top 5 recently pushed, excluding profile repo and forks) ---
+          echo "$RESULT" | jq -r '
+            [.data.user.repositories.nodes[]
+              | select(.isFork == false and .name != "andimrob")]
+            | .[0:5]
+            | .[]
+            | "  drwxr-xr-x  \(.name)/"
+          ' > /tmp/projects.txt
+
+      - name: Generate README from template
         run: |
-          sed -i "s/Last login: .* from the internet/Last login: ${{ steps.latest.outputs.date }} from the internet/" README.md
+          cp README.template.md README.md
+
+          LAST_LOGIN=$(cat /tmp/last_login.txt)
+          sed -i "s|{{LAST_LOGIN}}|${LAST_LOGIN}|" README.md
+
+          awk '/\{\{PROJECTS\}\}/{while((getline line < "/tmp/projects.txt") > 0) print line; next}1' README.md > /tmp/readme_tmp && mv /tmp/readme_tmp README.md
 
       - name: Commit and push
-        if: steps.latest.outputs.found == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git diff --quiet README.md || {
             git add README.md
-            git commit -m "chore: update motd last login date"
+            git commit -m "chore: update motd profile data"
             git push
           }

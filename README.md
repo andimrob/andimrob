@@ -2,18 +2,8 @@
 rob@github:~$ cat /etc/motd
 
   Welcome. You have reached the GitHub profile of Rob.
-  Last login: Wed Feb 18 04:55:39 2026 from the internet
+  Last login: Wed Feb 18 05:01:11 2026 from the internet
   System uptime: several decades and counting.
-
-rob@github:~$ neofetch
-
-  rob@github
-  ----------
-  Repos: 4
-  Stars: 1
-  Contributions: 175
-  Top Languages: CSS, Go, Go Template
-  Followers: 38
 
 rob@github:~$ cat interests.txt
 

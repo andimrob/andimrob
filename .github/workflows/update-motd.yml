@@ -22,7 +22,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           LATEST_DATE=$(
-            gh api /users/andimrob/events --paginate --jq '
+            gh api /users/andimrob/events --jq '
               [.[] | select(.type == "PushEvent")][0].created_at
             '
           )

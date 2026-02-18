@@ -50,11 +50,13 @@ jobs:
 
           # --- Projects (top 5 recently pushed, excluding profile repo and forks) ---
           echo "$RESULT" | jq -r '
-            [.data.user.repositories.nodes[]
-              | select(.isFork == false and .name != "andimrob")]
+            ["drwxr-xr-x", "drwxrwxr-x", "drwxr-x---", "drwx------"] as $perms
+            | [.data.user.repositories.nodes[]
+                | select(.isFork == false and .name != "andimrob")]
             | .[0:5]
+            | to_entries
             | .[]
-            | "  drwxr-xr-x  \(.name)/"
+            | "  \($perms[.key % ($perms | length)])  <a href=\"https://github.com/andimrob/\(.value.name)\">\(.value.name)/</a>"
           ' > /tmp/projects.txt
 
       - name: Generate README from template

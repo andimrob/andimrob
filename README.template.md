@@ -14,9 +14,12 @@ rob@github:~$ cat interests.txt
   Clean code and good tests
 
 rob@github:~$ ls projects/
-
+```
+<pre>
 {{PROJECTS}}
+</pre>
 
+```bash
 rob@github:~$ git log --oneline --reverse
 
   a1b2c3d  Wrote first "Hello World"

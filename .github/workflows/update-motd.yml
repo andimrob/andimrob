@@ -93,9 +93,9 @@ jobs:
             | group_by(.)
             | sort_by(-length)
             | .[0:3]
-            | .[]
-            | .[0]
-          ' | paste -sd ', ' -)
+            | map(.[0])
+            | join(", ")
+          ')
 
           cat > /tmp/neofetch.txt <<EOF
             rob@github

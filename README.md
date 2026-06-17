@@ -2,7 +2,7 @@
 rob@github:~$ cat /etc/motd
 
   Welcome. You have reached the GitHub profile of Rob.
-  Last login: Tue Jun 16 19:15:58 2026 from the internet
+  Last login: Wed Jun 17 01:20:52 2026 from the internet
   System uptime: several decades and counting.
 
 rob@github:~$ cat interests.txt
@@ -15,8 +15,8 @@ rob@github:~$ cat interests.txt
 
 rob@github:~$ ls projects/
 
-  drwxr-xr-x  <a href="https://github.com/andimrob/docrot">docrot/</a>
-  drwxrwxr-x  <a href="https://github.com/andimrob/dotfiles">dotfiles/</a>
+  drwxr-xr-x  <a href="https://github.com/andimrob/dotfiles">dotfiles/</a>
+  drwxrwxr-x  <a href="https://github.com/andimrob/docrot">docrot/</a>
   drwxr-x---  <a href="https://github.com/andimrob/andimrob.github.io">andimrob.github.io/</a>
 
 rob@github:~$ git log --oneline --reverse
